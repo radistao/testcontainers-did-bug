@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'gradle:5.5.1-jdk11'
-            args '-v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock -v $PWD:$PWD -w $PWD -u root --privileged'
+            args '-v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock -v $PWD:$PWD -w $PWD'
         }
     }
 
