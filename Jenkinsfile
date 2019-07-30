@@ -1,7 +1,7 @@
 pipeline {
     agent {
         docker {
-            image 'gradle:5.5.1-jdk11'
+            image 'adoptopenjdk/openjdk11:x86_64-debian-jdk-11.0.4_11'
             args '-v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock -v $PWD:$PWD -w $PWD -u root --privileged'
         }
     }
