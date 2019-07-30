@@ -6,7 +6,9 @@ import com.github.dockerjava.api.exception.InternalServerErrorException;
 import com.github.dockerjava.api.exception.NotFoundException;
 import com.github.dockerjava.core.command.LogContainerCmdImpl;
 import com.github.dockerjava.core.command.LogContainerResultCallback;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Timeout;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testcontainers.dockerclient.DockerClientProviderStrategy;
@@ -16,14 +18,17 @@ import org.testcontainers.utility.TestcontainersConfiguration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ServiceLoader;
-import java.util.concurrent.TimeUnit;
 
+import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.Assert.assertTrue;
 import static org.testcontainers.DockerClientFactory.DEFAULT_LABELS;
 
 class DockerRunTest {
+
     @Test
-    void testSomeLibraryMethod() {
+    @DisplayName("Test run and exit docker container")
+    @Timeout(value = 30, unit = SECONDS)
+    void testRunDockerInDocker() {
         final Logger logger = LoggerFactory.getLogger(this.getClass());
 
         final List<DockerClientProviderStrategy> configurationStrategies = new ArrayList<>();
@@ -33,6 +38,8 @@ class DockerRunTest {
         final DockerClient strategyDockerClient = strategy.getClient();
 
         final String TINY_IMAGE = TestcontainersConfiguration.getInstance().getTinyImage();
+        logger.info("Pulling {} image", TINY_IMAGE);
+        logger.info("Image {} pulled successfully", TINY_IMAGE);
         strategyDockerClient.pullImageCmd(TINY_IMAGE);
         final CreateContainerCmd createContainerCmd = strategyDockerClient
                 .createContainerCmd(TINY_IMAGE)
@@ -57,7 +64,7 @@ class DockerRunTest {
                 logger.info("exec={}", exec);
                 final LogContainerResultCallback logContainerResultCallback = exec.awaitStarted();
                 logger.info("logContainerResultCallback={}", logContainerResultCallback);
-                final boolean awaitCompletion = loggingCallback.awaitCompletion(3L, TimeUnit.SECONDS);
+                final boolean awaitCompletion = loggingCallback.awaitCompletion(3L, SECONDS);
                 logger.info("awaitCompletion={}", awaitCompletion);
                 final String loggingCallbackResult = loggingCallback.toString().trim();
                 logger.info("loggingCallbackResult={}", loggingCallbackResult);
