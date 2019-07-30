@@ -84,7 +84,7 @@ class DockerRunTest {
                         .exec();
                 logger.info("Removed container {}", createContainerCmdId);
             } catch (final InternalServerErrorException | NotFoundException ex) {
-                logger.error("", ex);
+                logger.error("Container Running Error: ", ex);
             }
         }
 

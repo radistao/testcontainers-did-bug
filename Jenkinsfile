@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Verify Environment') {
             steps {
-                sh "cat /etc/os-release"
+//                sh "cat /etc/os-release"
                 sh "uname -a"
                 sh "whoami"
 
