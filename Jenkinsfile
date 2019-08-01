@@ -33,6 +33,8 @@ pipeline {
         }
         stage('Test') {
             steps {
+                sh './gradlew --version --quiet -Dorg.gradle.internal.launcher.welcomeMessageEnabled=false'
+
                 // low logging level
                 sh './gradlew testClasses --quiet -Dorg.gradle.internal.launcher.welcomeMessageEnabled=false'
 
