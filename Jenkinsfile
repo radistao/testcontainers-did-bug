@@ -2,7 +2,7 @@ pipeline {
     agent {
         docker {
             image 'adoptopenjdk/openjdk11:x86_64-debian-jdk-11.0.4_11'
-            args '-v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock -v $PWD:$PWD -w $PWD -u root --privileged'
+            args '-v /usr/bin/docker:/usr/bin/docker -v /var/run/docker.sock:/var/run/docker.sock -u root --privileged'
         }
     }
 
@@ -14,7 +14,7 @@ pipeline {
                 sh "whoami"
 
                 sh "java --version"
-                sh "docker --version"
+                sh "docker version"
 
                 sh "docker pull alpine:3.5"
                 sh "docker images"
