@@ -1,4 +1,4 @@
-package ort.testcontainers.did;
+package org.testcontainers.did;
 
 import com.github.dockerjava.api.DockerClient;
 import com.github.dockerjava.api.command.CreateContainerCmd;
